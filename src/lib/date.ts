@@ -1,3 +1,4 @@
+import { getDayOfYear as _getDayOfYear } from 'date-fns'
 import { toZonedTime } from 'date-fns-tz'
 
 export const WEEK_DAYS = [
@@ -33,6 +34,11 @@ export const TimeFrameCaptions = {
 
 export function getZonedDate(date = new Date()) {
    return toZonedTime(date, 'Europe/Rome')
+}
+
+export function getDayOfYear(date = new Date()): number {
+   date = getZonedDate(date)
+   return _getDayOfYear(date)
 }
 
 export function getDayName(date = new Date()) {
