@@ -1,14 +1,20 @@
 ---
 import Head from '@/components/Head.astro'
 
-import { getItalianDate } from '@/lib/date'
+import { getItalianDateWithDay } from '@/lib/date'
 import { SITE_NAME, SITE_DESCRIPTION } from '@/lib/constants'
 
 import '@/styles/reset.css'
+
+const { title = `${SITE_NAME} - ${getItalianDateWithDay()}`, description = SITE_DESCRIPTION } =
+   Astro.props as {
+      title?: string
+      description?: string
+   }
 ---
 
 <html lang="it">
-   <Head title={`${SITE_NAME} - ${getItalianDate()}`} description={SITE_DESCRIPTION} />
+   <Head {title} {description} />
    <body>
       <slot />
    </body>

@@ -1,7 +1,96 @@
 ---
 import Layout from '@/layouts/Layout.astro'
+import FrancydayLogo from '@/sprites/FrancydayLogo.astro'
+import DeveloperLogo from '@/sprites/DeveloperLogo.astro'
+
+import { getDayName, getItalianDate, getTimeUntilNextDay, getTimeFrameCaption } from '@/lib/date'
+
+import { RECIPIENT_NAME, SENDER_NAME, SENDER_URL } from '@/lib/constants'
+
+const { h, m, s } = getTimeUntilNextDay()
+
+const quote = ''
+const author = ''
 ---
 
+<script>
+   import { getZonedDate, getTimeFrameCaption, getTimeUntilNextDay } from '@/lib/date'
+
+   const timeFrameEl = document.querySelector('[data-time-frame]') as HTMLSpanElement
+
+   const hoursEl = document.querySelector('[data-time-h]') as HTMLSpanElement
+   const minutesEl = document.querySelector('[data-time-m]') as HTMLSpanElement
+   const secondsEl = document.querySelector('[data-time-s]') as HTMLSpanElement
+
+   function updateCountdownElements() {
+      const { h, m, s } = getTimeUntilNextDay()
+
+      hoursEl.textContent = `${h}h`
+      minutesEl.textContent = `${m}m`
+      secondsEl.textContent = `${s}s`
+
+      timeFrameEl.textContent = getTimeFrameCaption()
+   }
+
+   function refreshPage() {
+      const intervalDate = getZonedDate()
+
+      if (
+         intervalDate.getHours() === 0 &&
+         intervalDate.getMinutes() === 0 &&
+         intervalDate.getSeconds() === 0
+      ) {
+         window.setTimeout(() => {
+            window.location.reload()
+         }, 1000) // 1 extra second to be extra sure
+      }
+   }
+
+   window.setInterval(() => {
+      updateCountdownElements()
+      refreshPage()
+   }, 1000)
+</script>
+
 <Layout>
-   <!-- -->
+   <header>
+      <FrancydayLogo aria-hidden="true" />
+
+      <h1>
+         <span>{getDayName()}</span>
+         <span>{getItalianDate()}</span>
+      </h1>
+   </header>
+
+   <div>
+      <main>
+         <p>
+            <span data-time-frame>{getTimeFrameCaption()}</span>
+            {RECIPIENT_NAME},
+         </p>
+
+         <figure>
+            <blockquote>
+               {quote}
+            </blockquote>
+            <figcaption>— {author}</figcaption>
+         </figure>
+
+         <span class="divider"></span>
+
+         <p>
+            Torna tra <span data-time-h>{h}h</span>
+            <span data-time-m>{m}m</span>
+            <span data-time-s>{s}s</span>
+            per un nuovo aforisma su amore, famiglia e lavoro. Nel frattempo, ti auguro il meglio dalla
+            tua giornata.
+         </p>
+      </main>
+
+      <footer>
+         <p>Un regalo di compleanno da <a href={SENDER_URL}>{SENDER_NAME}</a></p>
+
+         <DeveloperLogo aria-hidden="true" />
+      </footer>
+   </div>
 </Layout>
