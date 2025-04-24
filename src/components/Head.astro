@@ -1,0 +1,58 @@
+---
+import { TYPEFACE, TYPEFACE_WEIGHTS, THEME_COLOR } from '@/lib/constants'
+
+const { title, description } = Astro.props as {
+   title: string
+   description: string
+}
+---
+
+<head>
+   <!-- Common -->
+
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <meta name="generator" content={Astro.generator} />
+
+   <title>{title}</title>
+   <meta name="description" content={description} />
+
+   <!-- Assets -->
+
+   {
+      TYPEFACE_WEIGHTS.map((w) => (
+         <link
+            rel="preload"
+            href={`/${TYPEFACE}-${w}.woff2`}
+            as="font"
+            type="font/woff2"
+            crossorigin
+         />
+      ))
+   }
+
+   <!-- PWA -->
+
+   <link rel="manifest" href="/manifest.webmanifest" crossorigin="use-credentials" />
+   <meta name="theme-color" content={THEME_COLOR} />
+   <meta name="apple-mobile-web-app-capable" content="yes" />
+   <meta name="apple-mobile-web-app-title" content="smastrom" />
+   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+   <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png" />
+   <link rel="apple-touch-icon" sizes="512x512" href="/icon-512.png" />
+
+   <!-- Open Graph -->
+
+   <meta property="og:type" content="article" />
+   <meta property="og:url" content={import.meta.env.SITE} />
+   <meta property="og:title" content={title} />
+   <meta property="og:description" content={description} />
+   <meta property="og:image" content="/og-image.png" />
+
+   <!-- Twitter -->
+
+   <meta property="twitter:url" content={import.meta.env.SITE} />
+   <meta property="twitter:title" content={title} />
+   <meta property="twitter:description" content={description} />
+   <meta property="twitter:image" content="/og-image.png" />
+</head>
