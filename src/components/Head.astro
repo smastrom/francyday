@@ -8,6 +8,10 @@ const { title, description } = Astro.props as {
 ---
 
 <head>
+   <!-- SEO -->
+
+   <meta name="robots" content="noindex" />
+
    <!-- Common -->
 
    <meta charset="utf-8" />
@@ -16,6 +20,8 @@ const { title, description } = Astro.props as {
 
    <title>{title}</title>
    <meta name="description" content={description} />
+
+   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
    <!-- Assets -->
 
