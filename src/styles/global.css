@@ -36,6 +36,10 @@
    --app-width: 920px;
 }
 
+html {
+   overscroll-behavior: none;
+}
+
 body {
    background-color: var(--bg);
    color: var(--fg);
@@ -43,6 +47,6 @@ body {
       'Noticia Text', 'Palatino Linotype', 'Book Antiqua', Palatino, 'Times New Roman', Times, serif;
    max-width: var(--app-width);
    margin: 0 auto;
-   min-height: 100vh;
-   min-height: 100svh;
+   height: 100vh;
+   height: 100svh;
 }
