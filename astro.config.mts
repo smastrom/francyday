@@ -1,10 +1,11 @@
 import { defineConfig } from 'astro/config'
+
 import cloudflare from '@astrojs/cloudflare'
 
-import { browserslistToTargets } from 'lightningcss'
 import browserslist from 'browserslist'
+import { browserslistToTargets } from 'lightningcss'
 
-import { SITE_URL, SITE_URL_DEV } from './src/lib/constants'
+import { SITE_URL_DEV, SITE_URL } from './src/lib/constants'
 
 export default defineConfig({
    site: import.meta.env.DEV ? SITE_URL_DEV : SITE_URL,
