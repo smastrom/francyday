@@ -1,5 +1,5 @@
 export const RECIPIENT_NAME = 'Francesco'
-export const SENDER_NAME = '@smastrom'
+export const SENDER_NAME = 'Simone'
 export const SENDER_URL = 'https://github.com/smastrom'
 
 export const SITE_URL_DEV = 'http://localhost:4321'

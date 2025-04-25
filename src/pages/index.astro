@@ -8,6 +8,7 @@ import { getTodaysItem } from '@/lib/arrays'
 
 import { QUOTES } from '@/static/quotes'
 import { RECIPIENT_NAME, SENDER_NAME, SENDER_URL } from '@/lib/constants'
+import { PhClock, PhSun } from 'phosphor-icons-astro'
 
 const { h, m, s } = getTimeUntilNextDay()
 
@@ -25,6 +26,9 @@ const { quote, author } = getTodaysItem(QUOTES)
 
    function updateCountdownElements() {
       const { h, m, s } = getTimeUntilNextDay()
+
+      hoursEl.style.display = h === 0 ? 'none' : 'inline'
+      minutesEl.style.display = m === 0 ? 'none' : 'inline'
 
       hoursEl.textContent = `${h}h`
       minutesEl.textContent = `${m}m`
@@ -55,7 +59,7 @@ const { quote, author } = getTodaysItem(QUOTES)
 
 <Layout>
    <header>
-      <FrancydayLogo aria-hidden="true" />
+      <FrancydayLogo aria-hidden="true" class="Header__logo" />
 
       <h1>
          <span>{getDayName()}</span>
@@ -63,35 +67,265 @@ const { quote, author } = getTodaysItem(QUOTES)
       </h1>
    </header>
 
-   <div>
+   <PhSun weight="bold" class="Background__sun" aria-hidden="true" />
+
+   <div class="Content">
       <main>
-         <p>
+         <p class="Content__title">
             <span data-time-frame>{getTimeFrameCaption()}</span>
             {RECIPIENT_NAME},
          </p>
 
-         <figure>
+         <figure class="Content__quote">
             <blockquote>
                {quote}
             </blockquote>
             <figcaption>— {author}</figcaption>
          </figure>
 
-         <span class="divider"></span>
+         <span class="Content__divider"></span>
 
-         <p>
-            Torna tra <span data-time-h>{h}h</span>
-            <span data-time-m>{m}m</span>
-            <span data-time-s>{s}s</span>
-            per un nuovo aforisma su amore, famiglia e lavoro. Nel frattempo, ti auguro il meglio dalla
-            tua giornata.
-         </p>
+         <div class="Content__countdown">
+            <PhClock weight="bold" size={28} />
+
+            <p>
+               Torna tra <span data-time-h style={{ display: h === 0 ? 'none' : 'inline' }}>
+                  {h}h
+               </span>
+               <span data-time-m style={{ display: m === 0 ? 'none' : 'inline' }}>
+                  {m}m
+               </span>
+               <span data-time-s>{s}s</span>
+               per un nuovo aforisma su amore, famiglia e lavoro. Nel frattempo, ti auguro il meglio
+               dalla tua giornata.
+            </p>
+         </div>
       </main>
 
       <footer>
-         <p>Un regalo di compleanno da <a href={SENDER_URL}>{SENDER_NAME}</a></p>
+         <p>
+            Un regalo di compleanno da <a
+               href={SENDER_URL}
+               target="_blank"
+               rel="noopener noreferrer"
+            >
+               {SENDER_NAME}
+            </a>
+         </p>
 
          <DeveloperLogo aria-hidden="true" />
       </footer>
    </div>
 </Layout>
+
+<style>
+   header {
+      padding: var(--s-4) var(--s-4) 0 var(--s-4);
+      margin-bottom: var(--s-10);
+      position: relative;
+      z-index: var(--z-2);
+
+      @media (max-width: 1680px) {
+         margin-bottom: var(--s-8);
+      }
+
+      @media (max-width: 475px) {
+         padding: var(--s-4) var(--s-3) 0 var(--s-3);
+         margin-bottom: var(--s-4);
+      }
+
+      & h1 {
+         display: flex;
+         flex-direction: column;
+         gap: var(--s-05);
+         line-height: var(--lh-1);
+         font-size: var(--f-8);
+
+         @media (max-width: 475px) {
+            font-size: var(--f-6);
+         }
+
+         & span:first-of-type {
+            font-size: var(--f-6);
+
+            @media (max-width: 475px) {
+               font-size: var(--f-4);
+            }
+         }
+      }
+
+      & :global(.Header__logo) {
+         width: 120px;
+         color: var(--accent);
+         margin-bottom: var(--s-8);
+
+         @media (max-width: 1680px) {
+            margin-bottom: var(--s-6);
+         }
+
+         @media (max-width: 475px) {
+            width: 100px;
+         }
+      }
+   }
+
+   :global(.Background__sun) {
+      position: fixed;
+      top: -25vw;
+      right: -25vw;
+      width: 100vw;
+      height: 100vw;
+      color: var(--accent-light);
+
+      @media (max-width: 919px) {
+         top: 0;
+         right: -50vw;
+      }
+   }
+
+   .Content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background-color: var(--bg-elv);
+      padding: var(--s-6);
+      border-radius: var(--r-4);
+      box-shadow: var(--shadow);
+      position: relative;
+      z-index: var(--z-2);
+
+      @media (max-width: 1680px) {
+         padding: var(--s-4);
+      }
+
+      @media (max-width: 919px) {
+         position: absolute;
+         bottom: 0;
+         border-radius: var(--r-4) var(--r-4) 0 0;
+         min-height: 60vh;
+      }
+
+      @media (max-width: 475px) {
+         padding: var(--s-4) var(--s-3);
+         min-height: 70vh;
+      }
+
+      & .Content__title {
+         font-size: var(--f-6);
+         font-weight: 700;
+         margin-bottom: var(--s-8);
+         font-style: italic;
+
+         @media (max-width: 1680px) {
+            margin-bottom: var(--s-4);
+         }
+
+         @media (max-width: 475px) {
+            font-size: var(--f-4);
+         }
+      }
+
+      & .Content__quote {
+         font-weight: 700;
+
+         & blockquote {
+            font-size: var(--f-10);
+            font-style: italic;
+            line-height: var(--lh-4);
+            margin-bottom: var(--s-8);
+
+            @media (max-width: 1680px) {
+               font-size: var(--f-8);
+               margin-bottom: var(--s-6);
+            }
+
+            @media (max-width: 475px) {
+               font-size: var(--f-6);
+               margin-bottom: var(--s-4);
+            }
+         }
+
+         & figcaption {
+            font-size: var(--f-6);
+
+            @media (max-width: 475px) {
+               font-size: var(--f-4);
+            }
+         }
+      }
+
+      & .Content__divider {
+         width: 100%;
+         height: 1px;
+         background-color: var(--divider);
+         margin: var(--s-8) 0;
+         display: flex;
+
+         @media (max-width: 1680px) {
+            margin: var(--s-6) 0;
+         }
+
+         @media (max-width: 475px) {
+            margin: var(--s-4) 0;
+         }
+      }
+
+      & .Content__countdown {
+         display: flex;
+         align-items: flex-start;
+         gap: var(--s-05);
+         font-style: italic;
+
+         & span {
+            font-weight: 700;
+         }
+
+         & svg {
+            color: var(--accent);
+            flex-shrink: 0;
+            width: var(--s-2);
+            height: var(--s-2);
+         }
+
+         @media (max-width: 475px) {
+            font-size: var(--f-09);
+         }
+      }
+
+      & footer {
+         margin-top: var(--s-10);
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         gap: var(--s-2);
+         font-size: var(--f-09);
+
+         @media (max-width: 1680px) {
+            margin-top: var(--s-6);
+         }
+
+         @media (max-width: 475px) {
+            margin-top: var(--s-4);
+            font-size: var(--f-08);
+         }
+
+         & a {
+            color: var(--accent);
+            font-weight: 700;
+            text-decoration: none;
+
+            &:hover {
+               text-decoration: underline;
+            }
+         }
+
+         & svg {
+            width: var(--s-3);
+
+            @media (max-width: 475px) {
+               width: var(--s-2);
+            }
+         }
+      }
+   }
+</style>
