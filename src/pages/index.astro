@@ -37,24 +37,47 @@ const { quote, author } = getTodaysItem(QUOTES)
       timeFrameEl.textContent = getTimeFrameCaption()
    }
 
-   function refreshPage() {
+   function refreshAtMidnight() {
       const intervalDate = getZonedDate()
 
       if (
          intervalDate.getHours() === 0 &&
          intervalDate.getMinutes() === 0 &&
-         intervalDate.getSeconds() === 0
+         (intervalDate.getSeconds() === 0 ||
+            intervalDate.getSeconds() === 1 ||
+            intervalDate.getSeconds() === 2) // setInterval() may not be precise
       ) {
          window.setTimeout(() => {
             window.location.reload()
-         }, 1000) // 1 extra second to be extra sure
+         }, 500)
+      }
+   }
+
+   function refreshOnVisibilityChange() {
+      if (document.hidden) {
+         const hiddenAt = getZonedDate()
+
+         localStorage.setItem('hiddenAt', hiddenAt.toISOString())
+      } else {
+         const hiddenAtString = localStorage.getItem('hiddenAt')
+
+         if (hiddenAtString) {
+            const visibleAt = getZonedDate()
+            const hiddenAt = new Date(hiddenAtString)
+
+            if (visibleAt.toDateString() !== hiddenAt.toDateString()) {
+               window.location.reload()
+            }
+         }
       }
    }
 
    window.setInterval(() => {
       updateCountdownElements()
-      refreshPage()
+      refreshAtMidnight()
    }, 1000)
+
+   document.addEventListener('visibilitychange', refreshOnVisibilityChange)
 </script>
 
 <Layout>
