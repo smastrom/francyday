@@ -1,4 +1,4 @@
-import { getDayOfYear, getZonedDate } from './date'
+import { getDayOfYear, getZonedDate } from './dates'
 
 export function getTodaysItem<T>(arr: T[]) {
    const currentYear = getZonedDate().getFullYear()

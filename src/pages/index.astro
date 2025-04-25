@@ -3,7 +3,7 @@ import Layout from '@/layouts/Layout.astro'
 import FrancydayLogo from '@/sprites/FrancydayLogo.astro'
 import DeveloperLogo from '@/sprites/DeveloperLogo.astro'
 
-import { getDayName, getItalianDate, getTimeUntilNextDay, getTimeFrameCaption } from '@/lib/date'
+import { getDayName, getItalianDate, getTimeUntilNextDay, getTimeFrameCaption } from '@/lib/dates'
 import { getTodaysItem } from '@/lib/arrays'
 
 import { QUOTES } from '@/static/quotes'
@@ -16,7 +16,7 @@ const { quote, author } = getTodaysItem(QUOTES)
 ---
 
 <script>
-   import { getZonedDate, getTimeFrameCaption, getTimeUntilNextDay } from '@/lib/date'
+   import { getZonedDate, getTimeFrameCaption, getTimeUntilNextDay } from '@/lib/dates'
 
    const timeFrameEl = document.querySelector('[data-time-frame]') as HTMLSpanElement
 
