@@ -1,6 +1,8 @@
 import { defineConfig } from 'astro/config'
-
 import cloudflare from '@astrojs/cloudflare'
+
+import { browserslistToTargets } from 'lightningcss'
+import browserslist from 'browserslist'
 
 import { SITE_URL, SITE_URL_DEV } from './src/lib/constants'
 
@@ -14,5 +16,16 @@ export default defineConfig({
    }),
    devToolbar: {
       enabled: false,
+   },
+   vite: {
+      css: {
+         transformer: 'lightningcss',
+         lightningcss: {
+            targets: browserslistToTargets(browserslist('>= 0.25%')),
+         },
+      },
+      build: {
+         cssMinify: 'lightningcss',
+      },
    },
 })

@@ -3,12 +3,13 @@ import Layout from '@/layouts/Layout.astro'
 import FrancydayLogo from '@/sprites/FrancydayLogo.astro'
 import DeveloperLogo from '@/sprites/DeveloperLogo.astro'
 
+import { PhClock, PhSun } from 'phosphor-icons-astro'
+
 import { getDayName, getItalianDate, getTimeUntilNextDay, getTimeFrameCaption } from '@/lib/dates'
 import { getTodaysItem } from '@/lib/arrays'
 
 import { QUOTES } from '@/static/quotes'
 import { RECIPIENT_NAME, SENDER_NAME, SENDER_URL } from '@/lib/constants'
-import { PhClock, PhSun } from 'phosphor-icons-astro'
 
 const { h, m, s } = getTimeUntilNextDay()
 
@@ -200,7 +201,7 @@ const { quote, author } = getTodaysItem(QUOTES)
       height: 100vw;
       color: var(--accent-light);
 
-      @media (max-width: 919px) {
+      @media (max-width: 920px) {
          top: 0;
          right: -50vw;
       }
@@ -221,7 +222,7 @@ const { quote, author } = getTodaysItem(QUOTES)
          padding: var(--s-4);
       }
 
-      @media (max-width: 919px) {
+      @media (max-width: 920px) {
          position: absolute;
          bottom: 0;
          left: 0;

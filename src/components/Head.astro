@@ -1,5 +1,5 @@
 ---
-import { TYPEFACE, TYPEFACE_WEIGHTS, THEME_COLOR } from '@/lib/constants'
+import { SITE_NAME, TYPEFACE, TYPEFACE_WEIGHTS, THEME_COLOR } from '@/lib/constants'
 
 const { title, description } = Astro.props as {
    title: string
@@ -42,14 +42,14 @@ const { title, description } = Astro.props as {
    <link rel="manifest" href="/manifest.webmanifest" crossorigin="use-credentials" />
    <meta name="theme-color" content={THEME_COLOR} />
    <meta name="apple-mobile-web-app-capable" content="yes" />
-   <meta name="apple-mobile-web-app-title" content="smastrom" />
+   <meta name="apple-mobile-web-app-title" content={SITE_NAME} />
    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
    <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png" />
    <link rel="apple-touch-icon" sizes="512x512" href="/icon-512.png" />
 
    <!-- Open Graph -->
 
-   <meta property="og:type" content="article" />
+   <meta property="og:type" content="website" />
    <meta property="og:url" content={import.meta.env.SITE} />
    <meta property="og:title" content={title} />
    <meta property="og:description" content={description} />

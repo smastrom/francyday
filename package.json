@@ -11,13 +11,15 @@
    },
    "dependencies": {
       "@astrojs/cloudflare": "^12.5.1",
-      "@types/node": "^22.14.1",
       "astro": "^5.7.5",
       "date-fns": "^4.1.0",
       "date-fns-tz": "^3.2.0",
       "phosphor-icons-astro": "2.1.1-17042025"
    },
    "devDependencies": {
+      "@types/node": "^22.14.1",
+      "browserslist": "^4.24.4",
+      "lightningcss": "^1.29.3",
       "prettier": "^3.5.3",
       "prettier-plugin-astro": "^0.14.1",
       "vite": "^6.3.3"
